@@ -109,7 +109,7 @@ $$\text{Soluble} \iff (\text{inversiones}(S_{\text{inicial}}) \pmod 2) = (\text{
 
 ### Clonar el Repositorio
 ```bash
-git clone https://github.com/tu-usuario/8-puzzle-informed-search.git
+git clone https://github.com/NIXON-HS/Algoritmos-Informados.git
 cd "8-puzzle-informed-search"
 ```
 
