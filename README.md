@@ -63,9 +63,11 @@ Algoritmos Informados/
 ## 📐 Fundamentos Teóricos y Matemáticos
 
 ### 1. Heurística de la Distancia de Manhattan ($h(n)$)
-Para cada ficha numerada $v \in \{1, 2, \dots, 8\}$, su distancia de Manhattan es la suma de las distancias horizontales y verticales desde su posición actual $(x_v, y_v)$ hasta su posición objetivo $(x_v^*, y_v^*)$ (el espacio en blanco $0$ no se contabiliza):
+Para cada ficha numerada $v \in \{1, 2, \dots, 8\}$, su distancia de Manhattan es la suma de las distancias horizontales y verticales desde su posición actual $(x_v, y_v)$ hasta su posición objetivo $(x_v^{\text{meta}}, y_v^{\text{meta}})$ (el espacio en blanco $0$ no se contabiliza):
 
-$$h(n) = \sum_{v=1}^{8} \left( |x_v - x_v^*| + |y_v - y_v^*| \right)$$
+```math
+h(n) = \sum_{v=1}^{8} \left( |x_v - x_v^{\text{meta}}| + |y_v - y_v^{\text{meta}}| \right)
+```
 
 - **Admisibilidad**: $h(n) \le h^*(n)$ (nunca sobrestima el costo real para alcanzar la meta).
 - **Consistencia / Monotonía**: $h(n) \le c(n, a, n') + h(n')$ (cumple la desigualdad triangular).
@@ -87,9 +89,13 @@ $$h(n) = \sum_{v=1}^{8} \left( |x_v - x_v^*| + |y_v - y_v^*| \right)$$
 ### 3. Solubilidad y Paridad de Inversiones
 En el 8-Puzzle sobre una cuadrícula impar de $3 \times 3$, no todas las permutaciones iniciales tienen solución matemática. Un estado es alcanzable hacia el objetivo si y solo si el número de **inversiones** tiene la misma paridad (par/impar) que el estado objetivo:
 
-$$\text{Inversión}: \text{Existe un par } (i, j) \text{ tal que } i < j \text{ y } \text{ficha}[i] > \text{ficha}[j] \quad (\text{con } \text{ficha} \ne 0)$$
+```math
+\text{Inversión}: \text{Existe un par } (i, j) \text{ tal que } i < j \text{ y } \text{ficha}[i] > \text{ficha}[j] \quad (\text{con } \text{ficha} \ne 0)
+```
 
-$$\text{Soluble} \iff (\text{inversiones}(S_{\text{inicial}}) \pmod 2) = (\text{inversiones}(S_{\text{meta}}) \pmod 2)$$
+```math
+\text{Soluble} \iff (\text{inversiones}(S_{\text{inicial}}) \bmod 2) = (\text{inversiones}(S_{\text{meta}}) \bmod 2)
+```
 
 ---
 
@@ -110,7 +116,7 @@ $$\text{Soluble} \iff (\text{inversiones}(S_{\text{inicial}}) \pmod 2) = (\text{
 ### Clonar el Repositorio
 ```bash
 git clone https://github.com/NIXON-HS/Algoritmos-Informados.git
-cd "8-puzzle-informed-search"
+cd "Algoritmos-Informados"
 ```
 
 ### Ejecutar la Aplicación
