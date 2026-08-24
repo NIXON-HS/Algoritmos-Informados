@@ -20,6 +20,7 @@ from logic.search_algorithms import (
 )
 from gui.puzzle_view import PuzzleView
 from gui.tree_view import TreeView
+from gui.custom_state_dialog import CustomStateDialog
 
 
 class App(tk.Tk):
@@ -414,37 +415,15 @@ class App(tk.Tk):
         self._update_state_metrics()
 
     def _prompt_custom_state(self):
-        """Abre un cuadro de diálogo para que el usuario ingrese una permutación personalizada."""
+        """Abre el diálogo modal profesional para configurar o ingresar un estado personalizado."""
         self._cancel_animation()
-        curr_str = " ".join(str(x) for x in self.current_state.tiles)
-        val = simpledialog.askstring(
-            "Ingresar Estado Personalizado",
-            "Ingrese 9 números del 0 al 8 separados por espacio\n(ejemplo: 1 2 3 4 5 6 7 8 0):",
-            initialvalue=curr_str,
-            parent=self
-        )
-        if not val:
-            return
-
-        try:
-            nums = tuple(int(x.strip()) for x in val.replace(",", " ").split())
-            new_state = PuzzleState(nums)
-            if not new_state.is_solvable(self.goal_state):
-                resp = messagebox.askyesno(
-                    "Estado No Resoluble",
-                    "La configuración ingresada tiene distinta paridad de inversiones y NO es resoluble hacia el objetivo.\n\n¿Desea mantenerla de todos modos?",
-                    parent=self
-                )
-                if not resp:
-                    return
-
-            self.initial_state = new_state
+        dialog = CustomStateDialog(self, self.current_state, self.goal_state)
+        if dialog.result_state is not None:
+            self.initial_state = dialog.result_state
             self.current_state = self.initial_state
             self.puzzle_view.set_state(self.current_state)
             self._reset_search_state()
             self._update_state_metrics()
-        except Exception as e:
-            messagebox.showerror("Error de Formato", f"Entrada inválida: {e}", parent=self)
 
     def _reset_search_state(self):
         """Limpia el resultado y métricas de la búsqueda previa."""
